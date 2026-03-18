@@ -1079,6 +1079,32 @@ textarea.form-input { resize:vertical; min-height:108px; }
    ============================================================ */
 .svg-defs { position:absolute; width:0; height:0; overflow:hidden; }
 </style>
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBfp3xzEFjsfxcqkKIgc2-W0uVAxytNGEU",
+    authDomain: "sai-portfolio-reviews.firebaseapp.com",
+    projectId: "sai-portfolio-reviews",
+    storageBucket: "sai-portfolio-reviews.firebasestorage.app",
+    messagingSenderId: "146249023788",
+    appId: "1:146249023788:web:b75a21ffa16514e67c2c89"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  window.__sendToFirebase = async function(name, email, msg) {
+    await addDoc(collection(db, "messages"), {
+      name: name,
+      email: email,
+      message: msg,
+      timestamp: serverTimestamp()
+    });
+  };
+</script>
 </head>
 
 <body>
@@ -3800,12 +3826,18 @@ function sendContactMessage(){
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showToast('Invalid email address','error'); return; }
   var btn=document.getElementById('sendMessageBtn');
   var orig=btn.innerHTML; btn.innerHTML='<div class="loading"></div> Sending...'; btn.disabled=true;
-  setTimeout(function(){
-    showToast('Message sent! Will respond within 24 hours.','success');
-    if(nameEl) nameEl.value=''; if(emailEl) emailEl.value=''; if(msgEl) msgEl.value='';
-    btn.innerHTML=orig; btn.disabled=false;
-  },1800);
+   window.__sendToFirebase(name, email, msg)
+    .then(function() {
+      showToast('Message sent! Will respond within 24 hours.', 'success');
+      if(nameEl) nameEl.value=''; if(emailEl) emailEl.value=''; if(msgEl) msgEl.value='';
+      btn.innerHTML = orig; btn.disabled = false;
+    })
+    .catch(function(err) {
+      showToast('Error sending message. Try again!', 'error');
+      btn.innerHTML = orig; btn.disabled = false;
+    });
 }
+
 function showToast(msg,type){
   if(!type) type='info';
   document.querySelectorAll('.notification').forEach(function(n){ n.remove(); });
