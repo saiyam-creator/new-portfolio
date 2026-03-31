@@ -56,17 +56,19 @@
 }
 
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
+html { scroll-behavior:smooth; scroll-padding-top:70px; }
+* { -webkit-overflow-scrolling:touch; }
 
 /* ── ANIMATED MESH BACKGROUND ── */
 body {
   font-family: 'Mona Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   min-height:100vh;
   overflow-x:hidden;
-  cursor:none;
   position:relative;
   color: var(--text);
   background: #e8e4f0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body::before {
@@ -80,6 +82,8 @@ body::before {
     radial-gradient(ellipse 50% 60% at 20% 60%,  var(--mesh-5), transparent),
     linear-gradient(135deg, #f0eaf8 0%, #e0f2fe 40%, #ecfdf5 70%, #fdf4ff 100%);
   animation: meshShift 18s ease-in-out infinite alternate;
+  will-change: filter;
+  pointer-events: none;
 }
 
 @keyframes meshShift {
@@ -1913,13 +1917,14 @@ html { scroll-behavior: smooth; }
 
   <!-- Center nav pills -->
   <nav class="header-nav" id="headerNav">
-    <a href="#hero"      class="nav-link active">Home</a>
-    <a href="#about"     class="nav-link">About</a>
-    <a href="#skills"    class="nav-link">Skills</a>
-    <a href="#projects"  class="nav-link">Projects</a>
-    <a href="#demos"     class="nav-link">Demos</a>
-    <a href="#upcoming"  class="nav-link">Upcoming</a>
-    <a href="#contact"   class="nav-link">Contact</a>
+    <a href="#hero"           class="nav-link active">Home</a>
+    <a href="#about"          class="nav-link">About</a>
+    <a href="#skills"         class="nav-link">Skills</a>
+    <a href="#projects"       class="nav-link">Projects</a>
+    <a href="#demos"          class="nav-link">Demos</a>
+    <a href="#dataanalytics"  class="nav-link">Analytics</a>
+    <a href="#upcoming"       class="nav-link">Upcoming</a>
+    <a href="#contact"        class="nav-link">Contact</a>
   </nav>
 
   <!-- Right actions -->
@@ -1943,6 +1948,7 @@ html { scroll-behavior: smooth; }
   <div class="nav-dot" data-section="skills"></div>
   <div class="nav-dot" data-section="projects"></div>
   <div class="nav-dot" data-section="demos"></div>
+  <div class="nav-dot" data-section="dataanalytics"></div>
   <div class="nav-dot" data-section="upcoming"></div>
   <div class="nav-dot" data-section="contact"></div>
 </div>
@@ -2044,7 +2050,7 @@ html { scroll-behavior: smooth; }
       <div class="email-display"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6b180a02120a06010a0205595f5b5e2b0c060a020745080406">[email&#160;protected]</a></div>
       <div class="email-hint">click to copy ✦</div>
     </div> -->
-    <div class="bento-card bento-email">
+     <div class="bento-card bento-email">
   <div class="bento-label">Quick Contact</div>
   <a href="mailto:saiyamjain2405@gmail.com" class="email-display">
  saiyamjain2405@gmail.com   
@@ -2144,10 +2150,10 @@ html { scroll-behavior: smooth; }
     <div class="pj-title-block">
       <div class="section-eyebrow">// PROJECT PORTFOLIO</div>
       <h2 class="section-title-inline">What I've Built</h2>
-      <p class="pj-subtitle">14 projects · avg 4.8★</p>
+      <p class="pj-subtitle">15 projects </p>
     </div>
     <div class="pj-header-right">
-      <div class="pj-count-badge" id="pjCountBadge">14 projects</div>
+      <div class="pj-count-badge" id="pjCountBadge">15 projects</div>
       <div class="pj-view-toggle">
         <button class="pj-view-btn active" data-view="grid" title="Grid">⊞</button>
         <button class="pj-view-btn" data-view="list" title="List">☰</button>
@@ -2161,32 +2167,32 @@ html { scroll-behavior: smooth; }
       <button class="pj-tab active" data-category="all">
         <span class="pj-tab-icon">✦</span>
         <span class="pj-tab-label">All</span>
-        <span class="pj-tab-count">14</span>
+       
       </button>
       <button class="pj-tab" data-category="ai">
         <span class="pj-tab-icon">🤖</span>
         <span class="pj-tab-label">AI Tools</span>
-        <span class="pj-tab-count">6</span>
+     
       </button>
       <button class="pj-tab" data-category="showcase">
         <span class="pj-tab-icon">🚀</span>
         <span class="pj-tab-label">Showcase</span>
-        <span class="pj-tab-count">6</span>
+       
       </button>
       <button class="pj-tab" data-category="website">
         <span class="pj-tab-icon">🌐</span>
         <span class="pj-tab-label">Website</span>
-        <span class="pj-tab-count">4</span>
+       
       </button>
       <button class="pj-tab" data-category="finance">
         <span class="pj-tab-icon">💰</span>
         <span class="pj-tab-label">Finance</span>
-        <span class="pj-tab-count">3</span>
+       
       </button>
       <button class="pj-tab" data-category="education">
         <span class="pj-tab-icon">🎓</span>
         <span class="pj-tab-label">Education</span>
-        <span class="pj-tab-count">3</span>
+      
       </button>
     </div>
     <div class="pj-tabs-fade"></div>
@@ -2556,6 +2562,21 @@ html { scroll-behavior: smooth; }
 .pj-card:nth-child(11) { animation-delay:.44s; }
 .pj-card:nth-child(12) { animation-delay:.48s; }
 
+/* ── Click-to-open hint on cards ── */
+.pj-card .pj-card-footer .pj-btn,
+.da-card .da-card-footer .da-btn {
+  transition: all .25s cubic-bezier(.23,1,.32,1);
+}
+.pj-card:hover .pj-card-footer .pj-btn,
+.da-card:hover .da-card-footer .da-btn {
+  background: linear-gradient(135deg, rgba(124,58,237,0.18), rgba(14,165,233,0.14)) !important;
+  border-color: rgba(124,58,237,0.35) !important;
+  color: var(--primary) !important;
+  transform: translateY(-1px);
+}
+/* Tap cursor on whole card */
+.pj-card, .da-card { cursor: pointer; }
+
 /* ── Responsive ── */
 @media (max-width:1024px) {
   .pj-grid { grid-template-columns: repeat(2,1fr); }
@@ -2684,6 +2705,29 @@ html { scroll-behavior: smooth; }
 
 <div class="section-divider"></div>
 
+<div class="section-divider"></div>
+
+<!-- ═══════════════════════════════════════════════
+     DATA ANALYST PROJECTS SECTION
+═══════════════════════════════════════════════ -->
+<section id="dataanalytics" style="padding:0;display:block;">
+  <div class="da-section">
+    <div class="da-header">
+      <div>
+        <div class="section-eyebrow">// DATA ANALYTICS</div>
+        <h2 class="section-title-inline">Data Analyst Projects</h2>
+        <p class="da-subtitle">Dashboards, reports & visual analytics built with industry tools</p>
+      </div>
+    </div>
+
+    <div class="da-grid" id="daGrid">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
 <section id="contact" class="contact-cmd">
   <div class="cmd-header">
     <div class="section-eyebrow">// LET'S COLLABORATE</div>
@@ -2746,7 +2790,284 @@ html { scroll-behavior: smooth; }
 
 </div><!-- /content -->
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<!-- ══════════════════════════════════════════════════
+     PROJECT DETAIL MODAL
+══════════════════════════════════════════════════ -->
+<div class="pj-modal-overlay" id="pjModalOverlay">
+  <div class="pj-modal" id="pjModal">
+    <button class="pj-modal-close" id="pjModalClose">✕</button>
+    <div class="pj-modal-inner" id="pjModalInner">
+      <!-- Dynamic content injected here -->
+    </div>
+  </div>
+</div>
+
+<style>
+/* ══ PROJECT DETAIL MODAL ══ */
+.pj-modal-overlay {
+  position:fixed; inset:0; z-index:9995;
+  background: rgba(15,10,30,0.72);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  display:flex; align-items:center; justify-content:center;
+  padding: 20px;
+  opacity:0; pointer-events:none;
+  transition: opacity .35s cubic-bezier(.23,1,.32,1);
+}
+.pj-modal-overlay.open {
+  opacity:1; pointer-events:all;
+}
+.pj-modal {
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1.5px solid rgba(255,255,255,0.85);
+  border-radius: 30px;
+  max-width: 820px; width: 100%;
+  max-height: 90vh; overflow-y:auto;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.6) inset;
+  position:relative;
+  transform: scale(0.88) translateY(30px);
+  transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(124,58,237,.3) transparent;
+}
+.pj-modal-overlay.open .pj-modal {
+  transform: scale(1) translateY(0);
+}
+.pj-modal-close {
+  position:sticky; top:16px; float:right;
+  width:38px; height:38px; border-radius:50%;
+  border:none; background:rgba(0,0,0,0.08);
+  font-size:1rem; cursor:pointer; color:var(--text);
+  display:flex; align-items:center; justify-content:center;
+  margin: 16px 16px 0 0;
+  transition: all .2s ease; z-index:10;
+  backdrop-filter:blur(8px);
+}
+.pj-modal-close:hover { background:rgba(124,58,237,0.15); color:var(--primary); transform:scale(1.1) rotate(90deg); }
+
+/* Modal inner content */
+.pjm-hero {
+  background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(14,165,233,0.06));
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  padding: 32px 36px 28px;
+}
+.pjm-cat-pill {
+  display:inline-flex; align-items:center; gap:5px;
+  padding:4px 12px; border-radius:20px; font-size:.72rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:1px; margin-bottom:12px;
+  background: rgba(124,58,237,0.1); color:var(--primary);
+  border:1px solid rgba(124,58,237,0.2);
+}
+.pjm-title {
+  font-size:clamp(1.5rem,4vw,2.2rem); font-weight:900;
+  background:linear-gradient(135deg,var(--text) 0%,var(--primary) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  line-height:1.2; margin-bottom:14px;
+}
+.pjm-desc {
+  font-size:1rem; line-height:1.75; color:var(--text-2);
+  max-width:580px;
+}
+.pjm-tags { display:flex; flex-wrap:wrap; gap:7px; margin-top:16px; }
+.pjm-tag {
+  background:rgba(255,255,255,0.8); border:1px solid rgba(124,58,237,0.2);
+  color:var(--primary); padding:5px 13px; border-radius:14px;
+  font-size:.78rem; font-weight:700; backdrop-filter:blur(6px);
+}
+.pjm-body { padding: 28px 36px 36px; }
+.pjm-section-label {
+  font-size:.72rem; font-weight:800; letter-spacing:2px; text-transform:uppercase;
+  color:var(--text-3); margin-bottom:14px; display:flex; align-items:center; gap:8px;
+}
+.pjm-section-label::after { content:''; flex:1; height:1px; background:rgba(0,0,0,0.06); }
+
+/* Screenshot gallery */
+.pjm-gallery {
+  display:grid; gap:12px; margin-bottom:28px;
+}
+.pjm-gallery.cols-1 { grid-template-columns:1fr; }
+.pjm-gallery.cols-2 { grid-template-columns:repeat(2,1fr); }
+.pjm-gallery.cols-3 { grid-template-columns:repeat(3,1fr); }
+.pjm-screenshot {
+  border-radius:16px; overflow:hidden;
+  border:1.5px solid rgba(255,255,255,0.8);
+  box-shadow:0 4px 20px rgba(0,0,0,0.08);
+  background:linear-gradient(135deg,rgba(124,58,237,0.04),rgba(56,189,248,0.04));
+  aspect-ratio:16/9;
+  display:flex; align-items:center; justify-content:center;
+  position:relative; cursor:pointer;
+  transition: all .3s cubic-bezier(.23,1,.32,1);
+}
+.pjm-screenshot:hover { transform:translateY(-4px); box-shadow:0 12px 36px rgba(0,0,0,0.14); }
+.pjm-screenshot img { width:100%; height:100%; object-fit:cover; border-radius:14px; display:block; }
+.pjm-screenshot-placeholder {
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
+  color:var(--text-3); font-size:.85rem; width:100%; height:100%;
+  padding:20px;
+}
+.pjm-screenshot-placeholder .ph-icon { font-size:2.5rem; opacity:.35; }
+.pjm-screenshot-placeholder span { font-size:.78rem; opacity:.6; text-align:center; }
+.pjm-add-screenshot-btn {
+  border:2px dashed rgba(124,58,237,0.3); background:rgba(124,58,237,0.03);
+  cursor:pointer; transition:all .2s ease; border-radius:16px;
+  aspect-ratio:16/9; display:flex; align-items:center; justify-content:center;
+  flex-direction:column; gap:8px; color:var(--primary);
+  font-size:.8rem; font-weight:700;
+}
+.pjm-add-screenshot-btn:hover { border-color:var(--primary); background:rgba(124,58,237,0.07); }
+.pjm-add-screenshot-btn .plus { font-size:1.8rem; opacity:.6; }
+
+/* Feature highlights */
+.pjm-features { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:10px; margin-bottom:28px; }
+.pjm-feature-item {
+  background:rgba(255,255,255,0.7); border:1px solid rgba(255,255,255,0.9);
+  border-radius:14px; padding:12px 14px;
+  font-size:.82rem; color:var(--text); font-weight:600;
+  display:flex; align-items:center; gap:8px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.04);
+}
+.pjm-feature-item .fi-icon { font-size:1.1rem; }
+
+/* Action buttons */
+.pjm-actions { display:flex; gap:12px; margin-top:24px; }
+.pjm-btn {
+  flex:1; padding:14px 20px; border-radius:18px; border:none;
+  font-size:.9rem; font-weight:800; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  transition:all .3s cubic-bezier(.23,1,.32,1); font-family:inherit;
+}
+.pjm-btn-primary {
+  background:linear-gradient(135deg,#7c3aed,#0ea5e9);
+  color:#fff; box-shadow:0 6px 20px rgba(124,58,237,.30);
+}
+.pjm-btn-primary:hover { transform:translateY(-3px); box-shadow:0 12px 32px rgba(124,58,237,.42); }
+.pjm-btn-secondary {
+  background:rgba(255,255,255,0.8); color:var(--text-2);
+  border:1.5px solid rgba(255,255,255,0.9);
+  backdrop-filter:blur(8px); box-shadow:0 2px 8px rgba(0,0,0,0.06);
+}
+.pjm-btn-secondary:hover { background:rgba(255,255,255,1); color:var(--primary); transform:translateY(-2px); }
+.pjm-btn-disabled { opacity:.4; cursor:not-allowed !important; }
+.pjm-btn-disabled:hover { transform:none !important; }
+
+@media(max-width:600px){
+  .pjm-hero,.pjm-body { padding:24px 20px 20px; }
+  .pjm-gallery.cols-2,.pjm-gallery.cols-3 { grid-template-columns:1fr; }
+  .pjm-actions { flex-direction:column; }
+}
+
+/* ══ DATA ANALYST SECTION ══ */
+.da-section {
+  padding: 90px 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+}
+.da-header {
+  display:flex; justify-content:space-between; align-items:flex-end;
+  margin-bottom:40px; gap:20px;
+}
+.da-subtitle { font-size:.9rem; color:var(--text-3); margin-top:6px; font-weight:500; }
+
+.da-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  gap:22px;
+}
+.da-card {
+  background:rgba(255,255,255,0.45);
+  backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px);
+  border:1.5px solid rgba(255,255,255,0.65);
+  border-radius:24px; overflow:hidden;
+  transition:all .35s cubic-bezier(.4,0,.2,1);
+  box-shadow:0 4px 20px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.85);
+  position:relative;
+}
+.da-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg,var(--iris-1),var(--iris-2),var(--iris-3));
+  opacity:0; transition:opacity .3s ease;
+}
+.da-card:hover { transform:translateY(-8px); box-shadow:0 24px 56px rgba(0,0,0,.12), inset 0 1px 0 rgba(255,255,255,.95); border-color:rgba(255,255,255,.85); }
+.da-card:hover::before { opacity:1; }
+
+/* Dashboard preview area */
+.da-preview {
+  width:100%; height:180px; position:relative;
+  overflow:hidden; cursor:pointer;
+  background:linear-gradient(135deg,rgba(124,58,237,0.06),rgba(56,189,248,0.06));
+  display:flex; align-items:center; justify-content:center;
+}
+.da-preview img { width:100%; height:100%; object-fit:cover; transition:transform .4s ease; display:block; }
+.da-card:hover .da-preview img { transform:scale(1.04); }
+.da-preview-placeholder {
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+  color:var(--text-3); width:100%; height:100%;
+  justify-content:center;
+}
+.da-preview-placeholder .dap-icon { font-size:2.8rem; opacity:.35; }
+.da-preview-overlay {
+  position:absolute; inset:0; background:rgba(124,58,237,0.65);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; transition:opacity .3s ease;
+  color:#fff; font-size:.9rem; font-weight:700; gap:8px;
+}
+.da-card:hover .da-preview-overlay { opacity:1; }
+
+.da-card-body { padding:20px 22px 22px; }
+.da-tool-badges { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+.da-tool-badge {
+  font-size:.65rem; font-weight:800; text-transform:uppercase; letter-spacing:.8px;
+  padding:3px 9px; border-radius:8px;
+}
+.dab-powerbi { background:rgba(243,152,0,0.15); color:#c97a00; border:1px solid rgba(243,152,0,0.25); }
+.dab-tableau { background:rgba(31,119,180,0.12); color:#1a6ea8; border:1px solid rgba(31,119,180,0.2); }
+.dab-excel   { background:rgba(33,115,70,0.12); color:#1a7042; border:1px solid rgba(33,115,70,0.2); }
+.dab-python  { background:rgba(55,118,171,0.12); color:#2563eb; border:1px solid rgba(55,118,171,0.2); }
+.dab-sql     { background:rgba(52,211,153,0.12); color:#059669; border:1px solid rgba(52,211,153,0.25); }
+.dab-r       { background:rgba(167,139,250,0.12); color:#7c3aed; border:1px solid rgba(167,139,250,0.25); }
+.dab-looker  { background:rgba(244,114,182,0.12); color:#db2777; border:1px solid rgba(244,114,182,0.2); }
+
+.da-title { font-size:1.1rem; font-weight:800; color:var(--text); margin-bottom:7px; line-height:1.3; }
+.da-desc { font-size:.84rem; line-height:1.65; color:var(--text-2); margin-bottom:16px; }
+.da-card-footer { display:flex; gap:8px; }
+.da-btn {
+  flex:1; padding:9px 14px; border-radius:14px; border:none;
+  font-size:.8rem; font-weight:700; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  font-family:inherit; transition:all .25s cubic-bezier(.23,1,.32,1);
+}
+.da-btn-live { background:linear-gradient(135deg,#7c3aed,#0ea5e9); color:#fff; box-shadow:0 4px 14px rgba(124,58,237,.28); }
+.da-btn-live:hover { transform:translateY(-2px); box-shadow:0 8px 22px rgba(124,58,237,.42); }
+.da-btn-secondary { background:rgba(255,255,255,.6); color:var(--text-2); border:1.5px solid rgba(255,255,255,.75); backdrop-filter:blur(8px); }
+.da-btn-secondary:hover { background:rgba(255,255,255,.85); color:var(--primary); }
+
+/* Add new project card */
+.da-add-card {
+  border:2px dashed rgba(124,58,237,0.25);
+  background:rgba(124,58,237,0.03);
+  border-radius:24px; cursor:pointer;
+  transition:all .3s ease;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:12px; min-height:280px; color:var(--primary);
+  text-decoration:none;
+}
+.da-add-card:hover { border-color:rgba(124,58,237,.5); background:rgba(124,58,237,0.07); transform:translateY(-4px); }
+.da-add-card .daadd-icon { font-size:2.5rem; opacity:.5; }
+.da-add-card .daadd-text { font-size:.9rem; font-weight:700; opacity:.7; }
+.da-add-card .daadd-sub { font-size:.75rem; opacity:.45; text-align:center; max-width:200px; }
+
+@media(max-width:768px){
+  .da-section { padding:60px 16px; }
+  .da-grid { grid-template-columns:1fr; }
+  .da-header { flex-direction:column; align-items:flex-start; }
+}
+</style>
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ════════════════════════════════════════
    SMOOTH SCROLL — Lenis-style custom implementation
 ════════════════════════════════════════ */
@@ -2863,17 +3184,27 @@ document.querySelectorAll('.vd-video').forEach(function(vid, i){
    PARALLAX on scroll
 ════════════════════════════════════════ */
 function initParallax(){
+  var ticking = false;
+  var scrollY = 0;
+  var blobs = null;
+  var nameCard = null;
   window.addEventListener('scroll', function(){
-    var scrollY = window.scrollY;
-    /* blobs parallax */
-    document.querySelectorAll('.blob3d').forEach(function(b, i){
-      var speed = 0.06 + i * 0.02;
-      b.style.transform = 'translateY(' + (scrollY * speed) + 'px)';
-    });
-    /* bento name card subtle parallax */
-    var nameCard = document.querySelector('.bento-name');
-    if(nameCard) nameCard.style.transform = 'translateY(' + (scrollY * 0.04) + 'px)';
-  });
+    scrollY = window.scrollY;
+    if(!ticking){
+      requestAnimationFrame(function(){
+        if(!blobs) blobs = document.querySelectorAll('.blob3d');
+        if(!nameCard) nameCard = document.querySelector('.bento-name');
+        blobs.forEach(function(b, i){
+          var speed = 0.04 + i * 0.015;
+          b.style.transform = 'translateY(' + (scrollY * speed) + 'px)';
+        });
+        if(nameCard && scrollY < window.innerHeight)
+          nameCard.style.transform = 'translateY(' + (scrollY * 0.03) + 'px)';
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, {passive: true});
 }
 initParallax();
 
@@ -2892,7 +3223,7 @@ function updateNavNew(){
     l.classList.toggle('active', l.getAttribute('href') === '#'+cur);
   });
 }
-window.addEventListener('scroll', updateNavNew);
+window.addEventListener('scroll', updateNavNew, {passive:true});
 document.querySelectorAll('.nav-link').forEach(function(l){
   l.addEventListener('click', function(e){
     e.preventDefault();
@@ -2913,8 +3244,8 @@ document.querySelectorAll('.nav-dot').forEach(function(d){
   <div class="notification-content">
     <button class="notification-close" id="closeNotification">×</button>
     <div class="notification-icon">🚀</div>
-    <div class="notification-text"><h4>Latest Project Launched!</h4><p>Check out <strong>Ghost Room</strong> — Temporary Private Chat Rooms 👻</p></div>
-    <a href="https://saiyam-creator.github.io/ghost-room/" target="_blank" class="notification-btn">View Project →</a>
+    <div class="notification-text"><h4>Latest Project Launched!</h4><p>Check out <strong>companiaon connect</strong></p></div>
+    <a href="https://companion-connect-beta.vercel.app/" target="_blank" class="notification-btn">View Project →</a>
     <div class="notification-progress"></div>
   </div>
 </div>
@@ -3105,10 +3436,17 @@ document.head.appendChild(superStyles);
 var progBar = document.createElement('div');
 progBar.id = 'scroll-progress';
 document.body.insertBefore(progBar, document.body.firstChild);
+var _progTick = false;
 window.addEventListener('scroll', function(){
-  var pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-  progBar.style.width = pct + '%';
-});
+  if(!_progTick){
+    requestAnimationFrame(function(){
+      var pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      progBar.style.width = pct + '%';
+      _progTick = false;
+    });
+    _progTick = true;
+  }
+}, {passive:true});
 
 /* ════════════════════════════════════════
    3D FLOATING BLOBS (background depth)
@@ -3262,23 +3600,26 @@ setTimeout(initScrollReveal, 200);
 //    CURSOR GLOW TRAIL
 // ════════════════════════════════════════ */
 function initCursorTrail(){
-  var colors = ['rgba(167,139,250,.5)','rgba(56,189,248,.5)','rgba(52,211,153,.5)','rgba(244,114,182,.4)','rgba(251,146,60,.4)'];
+  var colors = ['rgba(167,139,250,.4)','rgba(56,189,248,.4)','rgba(52,211,153,.4)','rgba(244,114,182,.35)','rgba(251,146,60,.35)'];
   var ci = 0;
   var lastX = 0, lastY = 0;
+  var trailActive = false;
   document.addEventListener('mousemove', function(e){
-    if(Math.abs(e.clientX-lastX) < 8 && Math.abs(e.clientY-lastY) < 8) return;
+    if(Math.abs(e.clientX-lastX) < 18 && Math.abs(e.clientY-lastY) < 18) return;
+    if(trailActive) return;
+    trailActive = true;
     lastX = e.clientX; lastY = e.clientY;
-    var trail = document.createElement('div');
-    trail.className = 'cursor-trail';
-    var sz = 14 + Math.random()*10;
-    trail.style.width = sz+'px'; trail.style.height = sz+'px';
-    trail.style.left = (e.clientX - sz/2)+'px'; trail.style.top = (e.clientY - sz/2)+'px';
-    trail.style.background = colors[ci % colors.length];
-    trail.style.filter = 'blur(4px)';
-    ci++;
-    document.body.appendChild(trail);
-    setTimeout(function(){ if(trail.parentNode) trail.remove(); }, 700);
-  });
+    requestAnimationFrame(function(){
+      var trail = document.createElement('div');
+      trail.className = 'cursor-trail';
+      var sz = 12 + Math.random()*8;
+      trail.style.cssText = 'width:'+sz+'px;height:'+sz+'px;left:'+(lastX-sz/2)+'px;top:'+(lastY-sz/2)+'px;background:'+colors[ci%colors.length]+';filter:blur(3px);';
+      ci++;
+      document.body.appendChild(trail);
+      setTimeout(function(){ if(trail.parentNode) trail.remove(); }, 600);
+      trailActive = false;
+    });
+  }, {passive:true});
 }
 initCursorTrail();
 
@@ -3443,7 +3784,7 @@ function updateNav(){
   navDots.forEach(function(d){ d.classList.toggle('active', d.dataset.section===cur); });
   navLinks.forEach(function(l){ l.classList.toggle('active', l.getAttribute('href')==='#'+cur); });
 }
-window.addEventListener('scroll', updateNav);
+window.addEventListener('scroll', updateNav, {passive:true});
 navDots.forEach(function(d){
   d.addEventListener('click',function(){
     var el=document.getElementById(d.dataset.section); if(el) el.scrollIntoView({behavior:'smooth'});
@@ -3517,28 +3858,119 @@ var closeNotifBtn = document.getElementById('closeNotification');
 if(closeNotifBtn){ closeNotifBtn.addEventListener('click',function(){ var pn=document.getElementById('projectNotification'); if(pn) pn.style.display='none'; }); }
 
 /* ════════════════════════════════════════
-   PROJECT RENDER
+   PROJECT MODAL — Full Screen Detail
 ════════════════════════════════════════ */
-var PROJECTS = [
-  {id:'p1',title:'Stock Calculator',category:['finance','showcase'],description:'Advanced P&L calculator for your stock investments with real-time analytics.',tags:['AI','Python','Finance'],demoLink:'https://saiyam-creator.github.io/stock-calculator/',codeLink:'https://github.com/saiyam-creator/stock-calculator',favorite:true},
-  {id:'p2',title:'Investment Calculator',category:['finance'],description:'Calculate investment returns with advanced compound interest algorithms.',tags:['HTML','CSS','JavaScript','Finance'],demoLink:'https://saiyam-creator.github.io/investment-calculate/',codeLink:'https://github.com/saiyam-creator/investment-calculate',favorite:false},
-  {id:'p3',title:'English Corrector',category:['education'],description:'AI-powered grammar correction and writing improvement tool.',tags:['HTML','CSS','JS','Education'],demoLink:'https://saiyam-creator.github.io/correct-english/',codeLink:'https://github.com/saiyam-creator/correct-english',favorite:true},
-  {id:'p4',title:'Solar System 3D',category:['education','showcase'],description:'Interactive 3D solar system exploration built with Three.js and WebGL.',tags:['AI','3D','Education'],demoLink:'https://saiyam-creator.github.io/solar-system/',codeLink:'https://github.com/saiyam-creator/solar-system',favorite:true},
-  {id:'p5',title:'All About Shapes',category:['education'],description:'Educational app teaching kids geometry with interactive visuals.',tags:['JS','HTML','CSS','Education'],demoLink:'https://saiyam-creator.github.io/all-about-shapes/',codeLink:'https://github.com/saiyam-creator/all-about-shapes',favorite:false},
-  {id:'p6',title:'Life GPS',category:['ai','showcase'],description:'AI-powered life coaching app for personal and professional navigation.',tags:['React','AI','Web App'],demoLink:'https://life-gps-coral.vercel.app/',codeLink:'https://github.com/saiyam-creator/life-gps',favorite:true},
-  {id:'p7',title:'WorthIT',category:['finance'],description:'AI-driven personal finance app for smart expense and investment tracking.',tags:['React','AI','Finance','Dashboard'],demoLink:'https://saiyam-creator.github.io/worthit-app/',codeLink:'https://github.com/saiyam-creator/worthit-app',favorite:false},
-  {id:'p8',title:'Gita Ka Gyan',category:['ai','showcase'],description:'Bhagavad Gita shlokas with AI-contextual meanings based on your feeling.',tags:['HTML','JS','AI','Spiritual'],demoLink:'https://saiyam-creator.github.io/krishna-path/',codeLink:'https://github.com/saiyam-creator/krishna-path',favorite:true},
-  {id:'p9',title:'AI Spam Detector',category:['ai','showcase'],description:'ML-powered email spam detection with Python and Streamlit.',tags:['Python','AI','Streamlit'],demoLink:'https://ai-spam-classifier-2407.streamlit.app/',codeLink:'https://github.com/saiyam-creator/ai-spam-classifier',favorite:true},
-  {id:'p10',title:'AI Voice Translator',category:['ai'],description:'Multi-language AI voice translation tool on Hugging Face.',tags:['Python','AI','Hugging Face'],demoLink:'https://huggingface.co/spaces/s143a/ai-voice-translator',codeLink:null,favorite:true},
-  {id:'p11',title:'Namaste Meerut',category:['website'],description:'Modern responsive restaurant website with Three.js animations.',tags:['HTML','CSS','Three.js'],demoLink:'https://saiyam-creator.github.io/Namaste-Meerut/',codeLink:'https://github.com/saiyam-creator/Namaste-Meerut',favorite:true},
-{id:'p12',title:'Whispers — Anonymous Diary',category:['website'],description:'Anonymous diary app — share thoughts without identity or social pressure.',tags:['JavaScript','Firebase','Realtime'],demoLink:'https://mywebsite-ca4b1.web.app/',codeLink:null,favorite:true},
-  {id:'p13',title:'SafeSpace',category:['website','showcase'],description:'Peer listening platform connecting speakers with volunteer listeners anonymously.',tags:['React','Firebase','EmailJS'],demoLink:'https://safespaces-rust.vercel.app/',codeLink:'https://github.com/saiyam-creator/safespaces',favorite:true},
-  {id:'p14',title:'Ghost Room',category:['website','showcase'],description:'Temporary private chat rooms with unique keys, timers, and media support.',tags:['JavaScript','React','Supabase'],demoLink:'https://saiyam-creator.github.io/ghost-room/',codeLink:'https://github.com/saiyam-creator/ghostroom',favorite:true},
-];
-var FAVORITES = JSON.parse(localStorage.getItem('fav_projects')||'[]');
+var PROJ_SCREENSHOTS = {
+  'p1': ['https://i.ibb.co/nNt4d52x/image.png'],
+  'p2': ['https://i.ibb.co/Myf0smX5/image.png'],
+  'p3': ['https://i.ibb.co/ksqQ4yvW/image.png'],
+  'p4': ['https://i.ibb.co/x0B5LtM/image.png'],
+  'p5': ['https://i.ibb.co/0jNhkxst/image.png'],
+  'p6': ['https://i.ibb.co/gMr97GP0/image.png'],
+  'p7': ['https://i.ibb.co/7tns676n/image.png'],
+  'p8': ['https://i.ibb.co/hRC8jPnZ/image.png'],
+  'p9': ['https://i.ibb.co/qFVSjVY4/image.png'],
+  'p10': ['https://i.ibb.co/tMsMZf69/image.png'],
+  'p11': ['https://i.ibb.co/qYbMRVdf/image.png'],
+  'p12': ['https://i.ibb.co/8nn68q3C/image.png'],
+  'p13': ['https://i.ibb.co/tp9SsTmP/Screenshot-2026-03-30-230445.png'],
+  'p14': ['https://i.ibb.co/wZWp7mXK/Screenshot-2026-03-13-204131.png'],
+  'p15': ['https://i.ibb.co/XZVm2T2k/Screenshot-2026-03-30-230223.png'],
+};
+
+var PROJ_FEATURES = {
+  'p1': ['📈 Real-time P&L', '💹 Analytics Charts', '📊 Portfolio View', '🔔 Alerts'],
+  'p2': ['💰 Compound Interest', '📅 Timeline View', '📤 Export Reports'],
+  'p3': ['🤖 AI Powered', '✍️ Grammar Fix', '📝 Style Analysis', '🌐 Multi-lang'],
+  'p4': ['🌌 WebGL 3D', '🪐 8 Planets', '🔭 Orbit Simulation', '📱 Touch Support'],
+  'p5': ['🔷 Interactive Shapes', '👶 Kids Friendly', '🎮 Mini Games', '📐 Geometry'],
+  'p6': ['🧠 AI Coaching', '📍 Goal Tracking', '💡 Daily Insights', '🔥 Streaks'],
+  'p7': ['💳 Expense Tracking', '📊 Dashboards', '🏦 Investment', '🤖 AI Insights'],
+  'p8': ['📖 Sanskrit Shlokas', '🙏 AI Context', '😊 Mood-based', '🕉️ Spiritual'],
+  'p9': ['🔍 ML Detection', '📧 Email Classify', '⚡ Real-time', '🐍 Streamlit UI'],
+  'p10': ['🎙️ Voice Input', '🌍 Multi-language', '🔊 Audio Output', '☁️ HuggingFace'],
+  'p11': ['🎨 Three.js Anim', '📱 Fully Responsive', '🍽️ Menu UI', '⭐ Reviews'],
+  'p12': ['👻 Anonymous', '🔥 Firebase RT', '📓 Diary Format', '🔒 No Auth'],
+  'p13': ['🤝 Peer Support', '🔒 Anonymous', '📧 EmailJS', '⚡ Real-time'],
+  'p14': ['💬 Live Chat', '🔑 Room Keys', '⏱️ Auto Expire', '📎 Media Support'],
+  'p15': ['🤝 Companion Find', '🎬 Activity Match', '🔍 Smart Filter', '💬 Direct Chat'],
+};
+
+function openProjectModal(pid) {
+  var p = null;
+  for(var i=0;i<PROJECTS.length;i++){ if(PROJECTS[i].id===pid){p=PROJECTS[i];break;} }
+  if(!p) return;
+
+  var catLabel = {finance:'💰 Finance',education:'🎓 Education',ai:'🤖 AI Tool',showcase:'🚀 Showcase',website:'🌐 Website'};
+  var cat = p.category[0];
+  var screenshots = PROJ_SCREENSHOTS[pid] || [];
+  var features = PROJ_FEATURES[pid] || [];
+
+  /* gallery html */
+  var galHtml = '';
+  var galClass = screenshots.length === 0 ? 'cols-1' : screenshots.length === 1 ? 'cols-1' : screenshots.length === 2 ? 'cols-2' : 'cols-3';
+  if(screenshots.length > 0) {
+    screenshots.forEach(function(src){
+      galHtml += '<div class="pjm-screenshot"><img src="'+src+'" alt="Screenshot" loading="lazy"></div>';
+    });
+  } else {
+    galHtml = '<div class="pjm-screenshot"><div class="pjm-screenshot-placeholder"><div class="ph-icon">🖥️</div><span>Live preview available — click Demo button</span><span style="opacity:.4">Screenshots coming soon</span></div></div>';
+  }
+
+  /* features html */
+  var featHtml = '';
+  features.forEach(function(f){
+    var parts = f.match(/^([\S]{1,2})\s(.+)$/);
+    if(parts) featHtml += '<div class="pjm-feature-item"><span class="fi-icon">'+parts[1]+'</span>'+parts[2]+'</div>';
+    else featHtml += '<div class="pjm-feature-item">'+f+'</div>';
+  });
+
+  /* tags html */
+  var tagsHtml = '';
+  p.tags.forEach(function(t){ if(t) tagsHtml += '<span class="pjm-tag">'+t+'</span>'; });
+
+  /* code btn */
+  var codeBtnHtml = p.codeLink
+    ? '<button class="pjm-btn pjm-btn-secondary" onclick="window.open(\''+p.codeLink+'\',\'_blank\')">👨‍💻 Source Code</button>'
+    : '<button class="pjm-btn pjm-btn-secondary pjm-btn-disabled" disabled>🔒 Private / NDA</button>';
+
+  var inner = document.getElementById('pjModalInner');
+  inner.innerHTML =
+    '<div class="pjm-hero">' +
+    '<div class="pjm-cat-pill">'+(catLabel[cat]||cat)+'</div>' +
+    '<div class="pjm-title">'+p.title+'</div>' +
+    '<div class="pjm-desc">'+p.description+'</div>' +
+    '<div class="pjm-tags">'+tagsHtml+'</div>' +
+    '</div>' +
+    '<div class="pjm-body">' +
+    (screenshots.length > 0 ? '<div class="pjm-section-label">📸 Screenshots</div>' : '<div class="pjm-section-label">🖥️ Preview</div>') +
+    '<div class="pjm-gallery '+galClass+'">'+galHtml+'</div>' +
+    (featHtml ? '<div class="pjm-section-label">✨ Features</div><div class="pjm-features">'+featHtml+'</div>' : '') +
+    '<div class="pjm-section-label">🚀 Open Project</div>' +
+    '<div class="pjm-actions">' +
+    '<button class="pjm-btn pjm-btn-primary" onclick="window.open(\''+p.demoLink+'\',\'_blank\')">🌐 Live Demo</button>' +
+    codeBtnHtml +
+    '</div>' +
+    '</div>';
+
+  var overlay = document.getElementById('pjModalOverlay');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProjectModal() {
+  document.getElementById('pjModalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('pjModalClose').addEventListener('click', closeProjectModal);
+document.getElementById('pjModalOverlay').addEventListener('click', function(e){
+  if(e.target === this) closeProjectModal();
+});
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeProjectModal(); });
 
 /* ════════════════════════════════════════
-   RENDER PROJECTS — new pj-* format
+   PROJECT RENDER — click opens modal
 ════════════════════════════════════════ */
 function renderProjects(filter){
   if(!filter) filter='all';
@@ -3576,27 +4008,15 @@ function renderProjects(filter){
     var tagsHtml='';
     var tmax=Math.min(p.tags.length,4);
     for(var t=0;t<tmax;t++){
-      tagsHtml+='<span class="pj-tag">'+p.tags[t]+'</span>';
+      if(p.tags[t]) tagsHtml+='<span class="pj-tag">'+p.tags[t]+'</span>';
     }
 
-    /* code button */
-    var codeBtn='';
-    if(p.codeLink){
-      codeBtn='<button class="pj-btn pj-btn-code" onclick="window.open(\''+p.codeLink+'\',\'_blank\')">'
-        +'<span>👨‍💻</span>Source'
-        +'</button>';
-    } else {
-      codeBtn='<button class="pj-btn pj-btn-code disabled" disabled>'
-        +'<span>🔒</span>Private<span class="pj-private-badge">NDA</span>'
-        +'</button>';
-    }
-
-    html+='<div class="pj-card'+featured+'" data-id="'+p.id+'" data-category="'+p.category.join(' ')+'">';
+    html+='<div class="pj-card'+featured+'" data-id="'+p.id+'" data-category="'+p.category.join(' ')+'" onclick="openProjectModal(\''+p.id+'\')" style="cursor:pointer;">';
 
     /* top meta */
     html+='<div class="pj-card-top">';
     html+='<span class="pj-cat-pill cat-'+cat+'">'+(catLabel[cat]||cat)+'</span>';
-    html+='<button class="pj-fav-btn'+(isFav?' active':'') +'" onclick="toggleFav(\''+p.id+'\',this)" title="Favourite">★</button>';
+    html+='<button class="pj-fav-btn'+(isFav?' active':'') +'" onclick="event.stopPropagation();toggleFav(\''+p.id+'\',this)" title="Favourite">★</button>';
     html+='</div>';
 
     /* body */
@@ -3606,12 +4026,11 @@ function renderProjects(filter){
     html+='<div class="pj-tags">'+tagsHtml+'</div>';
     html+='</div>';
 
-    /* footer */
+    /* footer — click hint */
     html+='<div class="pj-card-footer">';
-    html+='<button class="pj-btn pj-btn-live" onclick="window.open(\''+p.demoLink+'\',\'_blank\')">'
-      +'<span>🌐</span>Live Demo'
-      +'</button>';
-    html+=codeBtn;
+    html+='<div class="pj-btn" style="background:linear-gradient(135deg,rgba(124,58,237,0.1),rgba(14,165,233,0.08));color:var(--primary);border:1.5px solid rgba(124,58,237,0.2);justify-content:center;font-size:.82rem;">'
+      +'<span>👁️</span> View Details &amp; Demo'
+      +'</div>';
     html+='</div>';
 
     html+='</div>'; /* /pj-card */
@@ -3619,14 +4038,34 @@ function renderProjects(filter){
 
   grid.innerHTML=html;
 
-  /* re-init interactions for new cards */
   setTimeout(function(){
     initTilt();
     initScrollReveal();
     initMagneticBtns();
   }, 80);
 }
+ var PROJECTS = [
+  {id:'p1',title:'Stock Calculator',category:['finance','showcase'],description:'Advanced P&L calculator for your stock investments with real-time analytics.',tags:['AI','Python','Finance'],demoLink:'https://saiyam-creator.github.io/stock-calculator/',codeLink:'https://github.com/saiyam-creator/stock-calculator',favorite:true},
+  {id:'p2',title:'Investment Calculator',category:['finance'],description:'Calculate investment returns with advanced compound interest algorithms.',tags:['HTML','CSS','JavaScript','Finance'],demoLink:'https://saiyam-creator.github.io/investment-calculate/',codeLink:'https://github.com/saiyam-creator/investment-calculate',favorite:false},
+  {id:'p3',title:'English Corrector',category:['education'],description:'AI-powered grammar correction and writing improvement tool.',tags:['HTML','CSS','JS','Education'],demoLink:'https://saiyam-creator.github.io/correct-english/',codeLink:'https://github.com/saiyam-creator/correct-english',favorite:true},
+  {id:'p4',title:'Solar System 3D',category:['education','showcase'],description:'Interactive 3D solar system exploration built with Three.js and WebGL.',tags:['AI','3D','Education'],demoLink:'https://saiyam-creator.github.io/solar-system/',codeLink:'https://github.com/saiyam-creator/solar-system',favorite:true},
+  {id:'p5',title:'All About Shapes',category:['education'],description:'Educational app teaching kids geometry with interactive visuals.',tags:['JS','HTML','CSS','Education'],demoLink:'https://saiyam-creator.github.io/all-about-shapes/',codeLink:'https://github.com/saiyam-creator/all-about-shapes',favorite:false},
+  {id:'p6',title:'Life GPS',category:['ai','showcase'],description:'AI-powered life coaching app for personal and professional navigation.',tags:['React','AI','Web App'],demoLink:'https://life-gps-coral.vercel.app/',codeLink:'https://github.com/saiyam-creator/life-gps',favorite:true},
+  {id:'p7',title:'WorthIT',category:['finance'],description:'AI-driven personal finance app for smart expense and investment tracking.',tags:['React','AI','Finance','Dashboard'],demoLink:'https://saiyam-creator.github.io/worthit-app/',codeLink:'https://github.com/saiyam-creator/worthit-app',favorite:false},
+  {id:'p8',title:'Gita Ka Gyan',category:['ai','showcase'],description:'Bhagavad Gita shlokas with AI-contextual meanings based on your feeling.',tags:['HTML','JS','AI','Spiritual'],demoLink:'https://saiyam-creator.github.io/krishna-path/',codeLink:'https://github.com/saiyam-creator/krishna-path',favorite:true},
+  {id:'p9',title:'AI Spam Detector',category:['ai','showcase'],description:'ML-powered email spam detection with Python and Streamlit.',tags:['Python','AI','Streamlit'],demoLink:'https://ai-spam-classifier-2407.streamlit.app/',codeLink:'https://github.com/saiyam-creator/ai-spam-classifier',favorite:true},
+  {id:'p10',title:'AI Voice Translator',category:['ai'],description:'Multi-language AI voice translation tool on Hugging Face.',tags:['Python','AI','Hugging Face'],demoLink:'https://huggingface.co/spaces/s143a/ai-voice-translator',codeLink:null,favorite:true},
+  {id:'p11',title:'Namaste Meerut',category:['website'],description:'Modern responsive restaurant website with Three.js animations.',tags:['HTML','CSS','Three.js'],demoLink:'https://saiyam-creator.github.io/Namaste-Meerut/',codeLink:'https://github.com/saiyam-creator/Namaste-Meerut',favorite:true},
+{id:'p12',title:'Whispers — Anonymous Diary',category:['website'],description:'Anonymous diary app — share thoughts without identity or social pressure.',tags:['JavaScript','Firebase','Realtime'],demoLink:'https://mywebsite-ca4b1.web.app/',codeLink:null,favorite:true},
+  {id:'p13',title:'SafeSpace',category:['website','showcase'],description:'Peer listening platform connecting speakers with volunteer listeners anonymously.',tags:['React','Firebase','EmailJS'],demoLink:'https://safespaces-rust.vercel.app/',codeLink:'https://github.com/saiyam-creator/safespaces',favorite:true},
+  {id:'p14',title:'Ghost Room',category:['website','showcase'],description:'Temporary private chat rooms with unique keys, timers, and media support.',tags:['JavaScript','React','Supabase'],demoLink:'https://saiyam-creator.github.io/ghost-room/',codeLink:'https://github.com/saiyam-creator/ghostroom',favorite:true},
+  {id:'p15',title:'Companion Connect',category:['website'],description:'Find your companion Just real people doing real things together near you.',tags:['HTML','JSON','Firebase','vercel','JavaScript'],demoLink:'https://companion-connect-beta.vercel.app/',codeLink:null,favorite:true},
+];
+var FAVORITES = JSON.parse(localStorage.getItem('fav_projects')||'[]');
 
+/* ════════════════════════════════════════
+   RENDER PROJECTS — new pj-* format
+════════════════════════════════════════ */
 function toggleFav(id,el){
   el.classList.toggle('active');
   var fi=FAVORITES.indexOf(id);
@@ -3661,6 +4100,143 @@ document.querySelectorAll('.pj-view-btn').forEach(function(btn){
 });
 
 renderProjects();
+
+/* ════════════════════════════════════════
+   DATA ANALYST PROJECTS RENDER
+════════════════════════════════════════ */
+var DA_PROJECTS = [
+  {
+    id:'da1',
+    title:'E-com Dashboard',
+    description:'Interactive dashboard analyzing monthly sales KPIs, regional trends, and product performance across Q1-Q4. Tracks revenue, targets, and growth velocity in real-time.',
+    tools:['powerbi'],
+    dashLink:'https://saiyam-creator.github.io/e-com-DA/',
+    codeLink: null,
+    images:['https://i.ibb.co/pBYpNxvZ/Screenshot-2026-03-31-115529.png'],
+    icon:'📊',
+    features:['📈 Monthly KPI Tracking','🗺️ Regional Breakdown','🎯 Target vs Actual','📦 Product Performance','🔔 Alert Thresholds','📤 PDF Export']
+  },
+  {
+    id:'da2',
+    title:'Hospital Analysis',
+    description:'Comprehensive analysis of patient demographics, treatment outcomes, and resource utilization. Identifies key factors influencing recovery rates and operational efficiency.',
+    tools:['python','sql'],
+    dashLink:'https://saiyam-creator.github.io/hospital-dashboard/',
+    codeLink: null,
+    images:['https://i.ibb.co/Z4MDpjT/image.png'],
+    icon:'👥',
+    features:['🔍 RFM Scoring','👥 10k+ Records','📊 Cluster Analysis','💡 Insight Reports','🐍 Python + Pandas','🗄️ SQL Queries']
+  },
+
+];
+
+var TOOL_LABELS = {
+  powerbi:'Power BI', tableau:'Tableau', excel:'Excel',
+  python:'Python', sql:'SQL', r:'R', looker:'Looker'
+};
+
+/* ── DA Modal open ── */
+function openDAModal(did) {
+  var proj = null;
+  for(var i=0;i<DA_PROJECTS.length;i++){ if(DA_PROJECTS[i].id===did){proj=DA_PROJECTS[i];break;} }
+  if(!proj) return;
+
+  var toolBadgesHtml = '';
+  proj.tools.forEach(function(t){
+    toolBadgesHtml += '<span class="pjm-tag" style="background:rgba(255,255,255,.8);">'+(TOOL_LABELS[t]||t)+'</span>';
+  });
+
+  /* gallery */
+  var galHtml = '';
+  if(proj.images && proj.images.length > 0){
+    proj.images.forEach(function(src){
+      galHtml += '<div class="pjm-screenshot"><img src="'+src+'" alt="Dashboard screenshot" loading="lazy"></div>';
+    });
+  } else {
+    galHtml = '<div class="pjm-screenshot"><div class="pjm-screenshot-placeholder"><div class="ph-icon">'+proj.icon+'</div><span>Dashboard preview — add images in DA_PROJECTS</span></div></div>';
+  }
+  var galClass = !proj.images || proj.images.length <= 1 ? 'cols-1' : proj.images.length === 2 ? 'cols-2' : 'cols-3';
+
+  /* features */
+  var featHtml = '';
+  if(proj.features){
+    proj.features.forEach(function(f){
+      var parts = f.match(/^([\S]{1,2})\s(.+)$/);
+      if(parts) featHtml += '<div class="pjm-feature-item"><span class="fi-icon">'+parts[1]+'</span>'+parts[2]+'</div>';
+      else featHtml += '<div class="pjm-feature-item">'+f+'</div>';
+    });
+  }
+
+  /* code link */
+  var codeBtnHtml = proj.codeLink
+    ? '<button class="pjm-btn pjm-btn-secondary" onclick="window.open(\''+proj.codeLink+'\',\'_blank\')">👨‍💻 Source Code</button>'
+    : '<button class="pjm-btn pjm-btn-secondary pjm-btn-disabled" disabled>🔒 Private / NDA</button>';
+
+  /* live btn */
+  var liveBtnHtml = proj.dashLink && proj.dashLink !== '#'
+    ? '<button class="pjm-btn pjm-btn-primary" onclick="window.open(\''+proj.dashLink+'\',\'_blank\')">📊 View Dashboard</button>'
+    : '<button class="pjm-btn pjm-btn-primary pjm-btn-disabled" disabled>🔗 Link Coming Soon</button>';
+
+  var inner = document.getElementById('pjModalInner');
+  inner.innerHTML =
+    '<div class="pjm-hero">' +
+    '<div class="pjm-cat-pill">📊 Data Analytics</div>' +
+    '<div class="pjm-title">'+proj.title+'</div>' +
+    '<div class="pjm-desc">'+proj.description+'</div>' +
+    '<div class="pjm-tags">'+toolBadgesHtml+'</div>' +
+    '</div>' +
+    '<div class="pjm-body">' +
+    '<div class="pjm-section-label">🖥️ Dashboard Preview</div>' +
+    '<div class="pjm-gallery '+galClass+'">'+galHtml+'</div>' +
+    (featHtml ? '<div class="pjm-section-label">✨ Key Insights</div><div class="pjm-features">'+featHtml+'</div>' : '') +
+    '<div class="pjm-section-label">🚀 Open Project</div>' +
+    '<div class="pjm-actions">' +
+    liveBtnHtml +
+    codeBtnHtml +
+    '</div>' +
+    '</div>';
+
+  var overlay = document.getElementById('pjModalOverlay');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function renderDataAnalytics(){
+  var grid = document.getElementById('daGrid');
+  if(!grid) return;
+  var html = '';
+
+  DA_PROJECTS.forEach(function(proj){
+    var toolBadges = '';
+    proj.tools.forEach(function(t){
+      toolBadges += '<span class="da-tool-badge dab-'+t+'">'+(TOOL_LABELS[t]||t)+'</span>';
+    });
+
+    var previewHtml = '';
+    if(proj.images && proj.images.length > 0){
+      previewHtml = '<img src="'+proj.images[0]+'" alt="'+proj.title+' preview" loading="lazy">';
+    } else {
+      previewHtml = '<div class="da-preview-placeholder"><div class="dap-icon">'+proj.icon+'</div><span style="font-size:.78rem;opacity:.5;">Click to view details</span></div>';
+    }
+
+    html += '<div class="da-card" onclick="openDAModal(\''+proj.id+'\')" style="cursor:pointer;">';
+    html += '<div class="da-preview">';
+    html += previewHtml;
+    html += '<div class="da-preview-overlay">👁️ View Details</div>';
+    html += '</div>';
+    html += '<div class="da-card-body">';
+    html += '<div class="da-tool-badges">'+toolBadges+'</div>';
+    html += '<div class="da-title">'+proj.title+'</div>';
+    html += '<div class="da-desc">'+proj.description+'</div>';
+    html += '<div class="da-card-footer">';
+    html += '<div class="da-btn da-btn-live" style="pointer-events:none;"><span>👁️</span>View Details & Dashboard</div>';
+    html += '</div>';
+    html += '</div></div>';
+  });
+
+  grid.innerHTML = html;
+}
+renderDataAnalytics();
 
 /* ════════════════════════════════════════
    ACHIEVEMENTS MODAL
